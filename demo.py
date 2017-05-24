@@ -66,8 +66,11 @@ print("created fifo in "+ FIFO_PATH)
 ROOMBA_PORT = args.roomba
 print("roomba port set to "+ ROOMBA_PORT)
 telekom = [(c4,S), (c4,S), (c4,S), (e4,S), (c4,Q)]
-os.unlink(FIFO_PATH)
-os.mkfifo(FIFO_PATH, 0766)
+try:
+    os.mkfifo(FIFO_PATH, 0766)
+except:
+    os.unlink(FIFO_PATH)
+    os.mkfifo(FIFO_PATH, 0766)
 robot = create.Create(ROOMBA_PORT, create.SAFE_MODE)
 robot.setSong(1, telekom)
 
