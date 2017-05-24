@@ -57,7 +57,7 @@ FIFO_PATH = "/tmp/roombaCommands"
 
 parser = argparse.ArgumentParser(description="Roomba Voice Command Control Software")
 parser.add_argument("-k", dest="keyword", help="Keyword for addressing the roomba", default="")
-parser.add_argument("-p", dest="path", help="path for creating the FIFO", default=FIFO_PATH)
+parser.add_argument("-p", dest="path", help="path where creating the FIFO", default=FIFO_PATH)
 args = parser.parse_args()
 print(args.keyword)
 FIFO_PATH = args.path
