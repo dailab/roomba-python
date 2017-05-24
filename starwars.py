@@ -5,7 +5,8 @@
 import time
 import create
 
-ROOMBA_PORT = "/dev/tty.usbserial-DA017V6X"
+#ROOMBA_PORT = "/dev/tty.usbserial-DA017V6X"
+ROOMBA_PORT = "/dev/rfcomm0"
 
 # define silence
 r = 30
@@ -63,6 +64,7 @@ def play_starwars(robot):
   starwars4 = [(r,E), (bes4,E), (ees5,Q), (d5,E), (des5,E),(c5,S), (b4,S), (c5,E), (c5,E)]
   starwars5 = [(r,E), (f4,E), (aes4,Q), (f4,Ed), (aes4,S),(c5,Q), (a4,Ed), (c5,S), (e5,HALF)]
   starwars6 = [(r,E), (f4,E), (aes4,Q), (f4,Ed), (c5,S),(a4,Q), (f4,Ed), (c5,S), (a4,HALF)]
+  telekom = [(c4,S), (c4,S), (c4,S), (e4,S), (c4,Q)]
   print("uploading songs")
   robot.setSong( 1, starwars1 )
   robot.setSong( 2, starwars2 )
@@ -95,10 +97,16 @@ def play_starwars(robot):
   time.sleep(MEASURE_TIME*1.15)
   print("playing part 6")
   robot.playSongNumber(2)
+  robot.setSong( 1, telekom )
   time.sleep(MEASURE_TIME*1.76)
+  robot.playSongNumber(1)
   print("done")
-
+  robot.setSong( 2, telekom )
+  time.sleep(5)
+  robot.playSongNumber(2)
+"""
 robot = create.Create(ROOMBA_PORT)
 robot.toSafeMode()
 play_starwars(robot)
 robot.close()
+"""

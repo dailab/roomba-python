@@ -18,7 +18,8 @@ import time
 # machine. On a Mac it's something like this.
 # On Linux it's usually tty.USB0 and on Win
 # its to serial port.
-ROOMBA_PORT = "/dev/tty.usbserial-DA017V6X"
+#ROOMBA_PORT = "/dev/tty.usbserial-DA017V6X"
+ROOMBA_PORT = "/dev/rfcomm0"
 
 
 
@@ -169,7 +170,8 @@ def main():
 if __name__ == '__main__': 
 	try:
 		main()
-	except Error as err:
+	except Exception as err:
+		print ("Caught exception")
 		print (err)
 	robot.go(0,0)
 	robot.close()

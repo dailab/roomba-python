@@ -479,7 +479,7 @@ class Create:
             print '              that it might be set to 19200 instead'
             print '              of the default 57600 - removing and'
             print '              reinstalling the battery should reset it.'
-        
+        #self.ser.flush() 
         # our OI mode
         self.sciMode = OFF_MODE
 
