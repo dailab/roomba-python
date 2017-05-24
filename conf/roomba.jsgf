@@ -1,0 +1,11 @@
+#JSGF V1.0;
+
+grammar sample;
+
+public <basicCmd> = ROBOT (<jingle> | <clean> | <spot> | <dock> | <stop>) ;
+<jingle> = JINGLE;
+<clean> = CLEAN;
+<stop> = STOP;
+<spot> = SPOT;
+<dock> = DOCK;
+
