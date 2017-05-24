@@ -89,6 +89,7 @@ def main():
             line = fifo.readline()
             if line != "":
                 line = keyword_ignore.sub("", line).strip(" ").strip("\n")
+                line.lower()
                 print(line)
 
                 if line == "clean":
