@@ -57,8 +57,11 @@ FIFO_PATH = "/tmp/roombaCommands"
 
 parser = argparse.ArgumentParser(description="Roomba Voice Command Control Software")
 parser.add_argument("-k", dest="keyword", help="Keyword for addressing the roomba", default="")
+parser.add_argument("-p", dest="path", help="path for creating the FIFO", default=FIFO_PATH)
 args = parser.parse_args()
 print(args.keyword)
+FIFO_PATH = args.path
+print("created fifo in "+ FIFO_PATH)
 telekom = [(c4,S), (c4,S), (c4,S), (e4,S), (c4,Q)]
 os.mkfifo(FIFO_PATH)
 robot = create.Create(ROOMBA_PORT, create.SAFE_MODE)
