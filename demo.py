@@ -54,25 +54,32 @@ MEASURE_TIME = MEASURE/64.
 
 ROOMBA_PORT = "/dev/rfcomm0"
 FIFO_PATH = "/tmp/roombaCommands"
-
+#parser
 parser = argparse.ArgumentParser(description="Roomba Voice Command Control Software")
 parser.add_argument("-k", dest="keyword", help="Keyword for addressing the roomba", default="")
 parser.add_argument("-p", dest="path", help="path where creating the FIFO", default=FIFO_PATH)
 parser.add_argument("-r", dest="roomba", help="serial port to the roomba", default=ROOMBA_PORT)
+
+#parsing args
 args = parser.parse_args()
 keyword = args.keyword.lower()
 print("keyword is " + keyword)
-#keyword_ignore = re.compile(re.escape(args.keyword), re.IGNORECASE)
 FIFO_PATH = args.path
 print("created fifo in "+ FIFO_PATH)
 ROOMBA_PORT = args.roomba
 print("roomba port set to "+ ROOMBA_PORT)
+
+#telekom jingle
 telekom = [(c4,S), (c4,S), (c4,S), (e4,S), (c4,Q)]
+
+#fifo init
 try:
     os.mkfifo(FIFO_PATH, 0766)
 except:
     os.unlink(FIFO_PATH)
     os.mkfifo(FIFO_PATH, 0766)
+
+#robot init
 robot = create.Create(ROOMBA_PORT, create.SAFE_MODE)
 robot.setSong(1, telekom)
 
@@ -89,7 +96,7 @@ def main():
             line = fifo.readline()
             if line != "":
                 #line = keyword_ignore.sub("", line).strip(" ").strip("\n")
-                line = line.lower.replace(keyword, "").strip(" ").strip("\n")
+                line = line.lower().replace(keyword, "").strip(" ").strip("\n")
                 print(line)
 
                 if line == "clean":
