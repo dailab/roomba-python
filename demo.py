@@ -4,6 +4,7 @@ import io
 import os
 import sys
 import argparse
+import re
 
 # define silence
 r = 30
@@ -61,6 +62,7 @@ parser.add_argument("-p", dest="path", help="path where creating the FIFO", defa
 parser.add_argument("-r", dest="roomba", help="serial port to the roomba", default=ROOMBA_PORT)
 args = parser.parse_args()
 print(args.keyword)
+keyword_ignore = re.compile(re.escape(args.keyword), re.IGNORECASE)
 FIFO_PATH = args.path
 print("created fifo in "+ FIFO_PATH)
 ROOMBA_PORT = args.roomba
@@ -86,7 +88,7 @@ def main():
     while exit_loop == False:
             line = fifo.readline()
             if line != "":
-                line = line.replace(args.keyword, "").strip(" ").strip("\n")
+                line = keyword_ignore.sub("", line).strip(" ").strip("\n")
                 print(line)
 
                 if line == "clean":
