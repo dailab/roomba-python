@@ -1,6 +1,7 @@
 #!/bin/bash
 
-#FIFO=/var/run/desk-control
+CURDIR=$(dirname $0);
+
 FIFO=/var/run/roomba-control
 
 
@@ -16,9 +17,10 @@ elif [ ! -p $FIFO ]; then
 fi
  
 /usr/bin/stdbuf -o0 /usr/bin/pocketsphinx_continuous \
-        -jsgf ./conf/roomba.jsgf \
-        -dict ./conf/roomba.dic \
+	-jsgf $CURDIR/conf/roomba.jsgf \
+	-dict $CURDIR/conf/roomba.dic \
         -inmic yes -kws_threshold 1e-03 \
+	-adcdev plughw:1 \
         -logfn /dev/null \
         | /usr/bin/stdbuf -o0 /bin/egrep -v "^READY|^Listening" \
         > $FIFO
